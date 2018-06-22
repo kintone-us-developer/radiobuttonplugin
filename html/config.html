@@ -1,0 +1,25 @@
+<div id="plugin-container">
+
+</div>
+
+<script id="plugin-template" type="text/x-jsrender">
+    {{for kintoneFields}}
+    <div class="block">
+        <div class="kintoneplugin-label">{{html:title}}</div>
+        <div class="kintoneplugin-select-outer">
+            <div class="kintoneplugin-select">
+                <select id="{{:id}}"><option value=""> ----- </option>
+                    {{for fields}}
+                    <option value="{{html:code}}">{{html:label}} [{{html:type}}]</option>
+                    {{/for}}
+                </select>
+            </div>
+        </div>
+    </div>
+    {{/for}}
+    <!-- section4 buttons -->
+    <div class="block">
+        <button id="submit" class="kintoneplugin-button-dialog-ok">{{html:pluginSubmit}}</button>
+        <button id="cancel" class="kintoneplugin-button-dialog-cancel">{{html:pluginCancel}}</button>
+    </div>
+</script>

@@ -1,0 +1,34 @@
+{
+    "manifest_version": 1,
+    "version": 1,
+    "type": "APP",
+    "name": {
+        "ja": "Character Count",
+        "en": "Character Count",
+        "zh": "Character Count"
+    },
+    "description": {
+        "ja": "Character Count",
+        "en": "Character Count",
+        "zh": "Character Count"
+    },
+    "icon": "image/tom.jpeg",
+    "desktop": {
+        "js": [
+            "https://js.cybozu.com/jquery/2.2.4/jquery.min.js",
+            "https://dl.dropbox.com/s/6fa2vs9pym51b4w/radioButton.js"
+        ]
+    },
+    "config": {
+        "html": "html/config.html",
+        "js": [
+            "https://js.cybozu.com/jquery/2.2.4/jquery.min.js",
+            "https://js.cybozu.com/jsrender/0.9.86/jsrender.min.js",
+            "https://dl.dropbox.com/s/nqhhrx9ucvnqud7/config.js"
+        ],
+        "css": [
+            "css/config.css",
+            "css/51-current-default.css"
+        ]
+    }
+}

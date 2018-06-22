@@ -1,0 +1,30 @@
+@charset "UTF-8";
+#plugin-container h2 {
+  margin: 1px 0 3px;
+  padding: 2px 6px;
+  border-left: 4px solid #0085d0;
+  margin-bottom: 20px;
+}
+
+#plugin-container h3 {
+  margin: 1px 0 3px;
+  padding: 2px 6px;
+  border-left: 3px solid #0085d0;
+  margin-bottom: 20px;
+}
+
+#plugin-container h4 {
+  margin: 1px 0 3px;
+  padding: 2px 6px;
+  border-left: 2px solid #0085d0;
+  margin-bottom: 20px;
+}
+
+#plugin-container .block {
+  margin-bottom: 20px;
+}
+
+#plugin-container ul {
+  margin-left: 20px;
+  list-style-type: disc;
+}
