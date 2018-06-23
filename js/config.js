@@ -36,11 +36,9 @@ jQuery.noConflict();
         // '#plugin-template' is defined in config.html
         var template = $.templates(document.querySelector('#plugin-template'));
         var templateItems = {kintoneFields:[], pluginSubmit:'', pluginCancel:''};
-
         var options = Object.keys(fields.radioButtonField[0].options);
-///As the number of radio buttons increase, change the index of the fields.radioButtonField array
-        console.log(options);//options is an object
 
+        //As the number of radio buttons increase, change the index of the fields.radioButtonField array
         for(var i=0; i<options.length; i++){
             templateItems.kintoneFields.push({
                 title: options[i],
@@ -49,7 +47,7 @@ jQuery.noConflict();
                 id: options[i],
                 fields: fields.groupField
             });
-        } 
+        }
         // section4 buttons
         templateItems.pluginSubmit = i18n.submitButton;
         templateItems.pluginCancel = i18n.cancelButton;
@@ -76,8 +74,7 @@ jQuery.noConflict();
                 };
                 switch (field.type) {
                     case 'RADIO_BUTTON':
-                        console.log(field);
-                        item.options = field.options; //the way options are stored is 1,3,2
+                        item.options = field.options;
                         fields['radioButtonField'].push(item);
                         break;
                     case 'GROUP':
@@ -87,7 +84,7 @@ jQuery.noConflict();
                         break;
                 }
             };
-            
+
             Object.keys(fields).forEach(function(f) {
                 fields[f].sort(function(a, b) {
                     var aa = a.label || a.code;
@@ -102,19 +99,22 @@ jQuery.noConflict();
                     return 0;
                 });
             });
-            
+
             createHtml(fields);
 
-//再度setting開いた時に前回の設定を表示する。
-            //set existing values
-//             var config = kintone.plugin.app.getConfig(PLUGIN_ID);
-//             if (config) {
-// ///ここのidはline48で決める。
-//                 var options = Object.keys(fields.radioButtonField[0].options);
-//                 for(var i=0; i<options.length; i++){
-//                     $(options[i]).val(['match'+i]);
-//                 }
-//             }
+            //When the plugin setting page is re-opened, it displays the previously set conditions.
+            var config = kintone.plugin.app.getConfig(PLUGIN_ID);
+            console.log(config);
+
+            var numKeys = Object.keys(config).length;
+
+            if (numKeys != 0) {
+              var options = Object.keys(fields.radioButtonField[0].options);
+              for(var i=0; i<options.length; i++){
+                  console.log(JSON.parse(config['match'+i]));
+                  $('#'+options[i]).val(JSON.parse(config['match'+i]).groupField);
+              }
+            }
 
             // append events
             appendEvents(fields);

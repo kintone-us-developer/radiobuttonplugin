@@ -3,20 +3,18 @@
     "version": 1,
     "type": "APP",
     "name": {
-        "ja": "Character Count",
-        "en": "Character Count",
-        "zh": "Character Count"
+        "ja": "グループフィールドコントローラー",
+        "en": "Group Field Controller"
     },
     "description": {
-        "ja": "Character Count",
-        "en": "Character Count",
-        "zh": "Character Count"
+        "ja": "グループフィールドコントローラー",
+        "en": "Group Field Controller"
     },
     "icon": "image/tom.jpeg",
     "desktop": {
         "js": [
             "https://js.cybozu.com/jquery/2.2.4/jquery.min.js",
-            "https://dl.dropbox.com/s/6fa2vs9pym51b4w/radioButton.js"
+            "js/radioButton.js"
         ]
     },
     "config": {
@@ -24,7 +22,7 @@
         "js": [
             "https://js.cybozu.com/jquery/2.2.4/jquery.min.js",
             "https://js.cybozu.com/jsrender/0.9.86/jsrender.min.js",
-            "https://dl.dropbox.com/s/nqhhrx9ucvnqud7/config.js"
+            "js/config.js"
         ],
         "css": [
             "css/config.css",
