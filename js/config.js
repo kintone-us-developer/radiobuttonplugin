@@ -19,8 +19,11 @@ jQuery.noConflict();
         $('#submit').click(function() {
             var options = Object.keys(fields.radioButtonField[0].options);
             var config = {};
+
+            config['radioButton'] = $('#radioButtonID').val();
             for(var i=0; i<options.length; i++){
-                config['match'+i] = JSON.stringify({optionName: options[i], groupField: $('#'+options[i]).val()});
+                config['match'+i] = JSON.stringify({optionName: options[i], groupFieldCode: $('#'+options[i].replace(/[^a-zA-Z0-9]+/g,'')).val()});
+                console.log($('#'+options[i].replace(/[^a-zA-Z0-9]+/g,'')).val());
             }
             kintone.plugin.app.setConfig(config);
         });
@@ -34,27 +37,58 @@ jQuery.noConflict();
     var createHtml = function(fields) {
         // template & items settings
         // '#plugin-template' is defined in config.html
-        var template = $.templates(document.querySelector('#plugin-template'));
-        var templateItems = {kintoneFields:[], pluginSubmit:'', pluginCancel:''};
-        var options = Object.keys(fields.radioButtonField[0].options);
+        var templateRadioButton = $.templates(document.querySelector('#plugin-template-radioButton'));
+        var templateItemsRadioButton = {kintoneRadioButtons:[]};
 
-        //As the number of radio buttons increase, change the index of the fields.radioButtonField array
-        for(var i=0; i<options.length; i++){
-            templateItems.kintoneFields.push({
-                title: options[i],
-                require: '*',
-                row: '',
-                id: options[i],
-                fields: fields.groupField
-            });
-        }
-        // section4 buttons
-        templateItems.pluginSubmit = i18n.submitButton;
-        templateItems.pluginCancel = i18n.cancelButton;
-        // render HTML
-        $('#plugin-container').html(template(templateItems));
+        templateItemsRadioButton.kintoneRadioButtons.push({
+            title: "Select your desired Radio Button Field below",
+            require: '*',
+            row: '',
+            id: 'radioButtonID',
+            fields: fields.radioButtonField
+        });
+
+        //render HTML
+        $('#plugin-container').html(templateRadioButton(templateItemsRadioButton));
+
+        $('#radioButtonID').change(function() {
+            var templateOption = $.templates(document.querySelector('#plugin-template-option'));
+            var templateItemsOption = {kintoneFields:[], pluginSubmit:'', pluginCancel:''};
+
+            var selectedFieldCode = $('#radioButtonID').val();
+
+            var options = [];
+            //var selectedRadioButtonLabel ='';
+            for(var i=0; i<fields.radioButtonField.length; i++){
+                if(fields.radioButtonField[i].code==selectedFieldCode){
+                    options = Object.keys(fields.radioButtonField[i].options);
+                    //selectedRadioButtonLabel = fields.radioButtonField.label;
+                }
+            }
+
+            //As the number of radio buttons increase, change the index of the fields.radioButtonField array
+            for(var i=0; i<options.length; i++){
+                templateItemsOption.kintoneFields.push({
+                    title: options[i],
+                    require: '*',
+                    row: '',
+                    id: options[i].replace(/[^a-zA-Z0-9]+/g,''),
+                    fields: fields.groupField
+                });
+            }
+            // section4 buttons
+            templateItemsOption.pluginSubmit = i18n.submitButton;
+            templateItemsOption.pluginCancel = i18n.cancelButton;
+
+            //$('#plugin-template-option').remove();
+            //$(”script”).remove(”#plugin-template-option”);
+            //$('#plugin-container').remove(templateOption(templateItemsOption));
+            $("#plugin-template-option-div").remove();
+
+            $('#plugin-container').append(templateOption(templateItemsOption));
+            appendEvents(fields);
+        });
     };
-
     // render HTML
     var renderHtml = function() {
         kintone.api(kintone.api.url('/k/v1/preview/app/form/fields', true), 'GET', {
@@ -64,6 +98,7 @@ jQuery.noConflict();
                 'radioButtonField': [],
                 'groupField': []
             };
+
             for (var key in resp.properties) {
                 var field = resp.properties[key];
                 var item = {
@@ -104,20 +139,17 @@ jQuery.noConflict();
 
             //When the plugin setting page is re-opened, it displays the previously set conditions.
             var config = kintone.plugin.app.getConfig(PLUGIN_ID);
-            console.log(config);
-
             var numKeys = Object.keys(config).length;
-
             if (numKeys != 0) {
-              var options = Object.keys(fields.radioButtonField[0].options);
-              for(var i=0; i<options.length; i++){
-                  console.log(JSON.parse(config['match'+i]));
-                  $('#'+options[i]).val(JSON.parse(config['match'+i]).groupField);
-              }
+            var options = Object.keys(fields.radioButtonField[0].options);
+            for(var i=0; i<options.length; i++){
+                console.log(JSON.parse(config['match'+i]));
+                $('#'+options[i]).val(JSON.parse(config['match'+i]).groupField);
+                }
             }
 
-            // append events
             appendEvents(fields);
+
         });
     };
 

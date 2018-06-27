@@ -2,8 +2,9 @@
 
 </div>
 
-<script id="plugin-template" type="text/x-jsrender">
-    {{for kintoneFields}}
+<script id="plugin-template-radioButton" type="text/x-jsrender">
+  <!-- radio button selection drop down -->
+    {{for kintoneRadioButtons}}
     <div class="block">
         <div class="kintoneplugin-label">{{html:title}}</div>
         <div class="kintoneplugin-select-outer">
@@ -17,9 +18,29 @@
         </div>
     </div>
     {{/for}}
-    <!-- section4 buttons -->
-    <div class="block">
-        <button id="submit" class="kintoneplugin-button-dialog-ok">{{html:pluginSubmit}}</button>
-        <button id="cancel" class="kintoneplugin-button-dialog-cancel">{{html:pluginCancel}}</button>
+</script>
+
+<script id="plugin-template-option" type="text/x-jsrender">
+    <!-- option drop down lists -->
+    <div id="plugin-template-option-div">
+        {{for kintoneFields}}
+        <div class="block">
+            <div class="kintoneplugin-label">{{html:title}}</div>
+            <div class="kintoneplugin-select-outer">
+                <div class="kintoneplugin-select">
+                    <select id="{{:id}}"><option value=""> ----- </option>
+                        {{for fields}}
+                        <option value="{{html:code}}">{{html:label}} [{{html:type}}]</option>
+                        {{/for}}
+                    </select>
+                </div>
+            </div>
+        </div>
+        {{/for}}
+        <!-- section4 buttons -->
+        <div class="block">
+            <button id="submit" class="kintoneplugin-button-dialog-ok">{{html:pluginSubmit}}</button>
+            <button id="cancel" class="kintoneplugin-button-dialog-cancel">{{html:pluginCancel}}</button>
+        </div>
     </div>
 </script>
