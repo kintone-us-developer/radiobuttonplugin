@@ -10,17 +10,17 @@
         "ja": "グループフィールドコントローラー",
         "en": "Group Field Controller"
     },
-    "icon": "image/tom.jpeg",
+    "icon": "image/icon.jpeg",
     "desktop": {
         "js": [
-            "https://js.cybozu.com/jquery/2.2.4/jquery.min.js",
+            "https://js.cybozu.com/jquery/3.3.1/jquery.min.js",
             "js/radioButton.js"
         ]
     },
     "config": {
         "html": "html/config.html",
         "js": [
-            "https://js.cybozu.com/jquery/2.2.4/jquery.min.js",
+            "https://js.cybozu.com/jquery/3.3.1/jquery.min.js",
             "https://js.cybozu.com/jsrender/0.9.86/jsrender.min.js",
             "js/config.js"
         ],
